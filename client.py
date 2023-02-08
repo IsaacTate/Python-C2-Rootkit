@@ -47,7 +47,7 @@ while True:
         else:
             out = ''
     elif cmd.lower() == 'netprofiles':
-        current = subprocess.getoutput('netsh wlan show interface').split('Profile')[1].split(': ')[1].split('\n')[0]
+        current = subprocess.getoutput('netsh wlan show interface').split('Profile')[1].split(': ')[1].split('\n')[0][0:-1]
         profiles = [i.split(' : ')[1] for i in subprocess.getoutput('netsh wlan show profiles').split('\n') if ': ' in i]
         profiles[profiles.index(current)] = current + ' (current)'
         wifi_info = {}
