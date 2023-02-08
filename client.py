@@ -59,7 +59,7 @@ while True:
                 wifi_info[i] = password
             except IndexError:
                 try:
-                    wifi_info[i] = subprocess.getoutput('netsh wlan show profiles "{}" key=clear'.format(i)).split('Profile')[3].split('Key Content')[1].split(': ')[1].split('\n')[0]
+                    wifi_info[i] = wifi_info[i] = subprocess.getoutput('netsh wlan show profiles "{}" key=clear'.format(i.split(' (current)')[0])).split('Profile')[3].split('Key Content')[1].split(': ')[1].split('\n')[0]
                 except IndexError:
                     wifi_info[i] = 'N/A'
         final_info = [i + ': ' + wifi_info[i] for i in wifi_info]
